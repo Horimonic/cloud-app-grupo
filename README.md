@@ -23,11 +23,11 @@ Aplicación web con funcionalidad CRUD para gestionar tareas.
 - **Automatización**: GitHub Actions (pipeline de integración)
 
 ## Pasos del proyecto
-- Creacion de repositorio git
-- Creacion de fichero js
-- Crear base de datos i conectarla a js
-- Crear html i css
-- Crear i vincular la web con render
+- Creacion de repositorio git (Andri)
+- Creacion de fichero js (Andri)
+- Crear base de datos i conectarla a js (Asier)
+- Crear html i css (Aaron)
+- Crear i vincular la web con render (Aaron)
 
 ## Dificultades
 Hemos encontrado dificultad en unir el fichero css al js i hemos tenido que crear un documento html conectado al css que importara el js
