@@ -1,0 +1,110 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>App de Tareas del Grupo</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>✅ App de Tareas</h1>
+
+    <form class="task-form" id="taskForm">
+      <input type="text" id="taskInput" placeholder="Escribe una nueva tarea..." required />
+      <button type="submit">Añadir</button>
+    </form>
+
+    <ul class="tasks-list" id="tasksList">
+      <!-- Las tareas se cargarán aquí -->
+    </ul>
+
+    <div id="errorMessage" class="error"></div>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const taskForm = document.getElementById('taskForm');
+    const tasksList = document.getElementById('tasksList');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Mostrar mensaje de error
+    function showError(msg) {
+      errorMessage.textContent = msg;
+      setTimeout(() => errorMessage.textContent = '', 3000);
+    }
+
+    // Cargar tareas
+    async function loadTasks() {
+      try {
+        const res = await fetch('/tasks', {
+          headers: {
+            'Authorization': 'Basic ' + btoa('Grupo:GrupoPass1234')
+          }
+        });
+        if (!res.ok) throw new Error('Acceso denegado. Verifica usuario/contraseña.');
+        const tasks = await res.json();
+        tasksList.innerHTML = '';
+        if (tasks.length === 0) {
+          tasksList.innerHTML = '<li class="empty-message">No hay tareas aún.</li>';
+          return;
+        }
+        tasks.forEach(task => {
+          const li = document.createElement('li');
+          li.className = 'task-item';
+          li.innerHTML = `
+            <span class="task-text">${task.text}</span>
+            <button class="delete-btn" data-id="${task._id}">Eliminar</button>
+          `;
+          tasksList.appendChild(li);
+        });
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    // Añadir tarea
+    taskForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = taskInput.value.trim();
+      if (!text) return;
+      try {
+        const res = await fetch('/tasks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + btoa('Grupo:GrupoPass1234')
+          },
+          body: JSON.stringify({ text })
+        });
+        if (!res.ok) throw new Error('Error al crear la tarea.');
+        taskInput.value = '';
+        loadTasks();
+      } catch (err) {
+        showError(err.message);
+      }
+    });
+
+    // Eliminar tarea
+    tasksList.addEventListener('click', async (e) => {
+      if (e.target.classList.contains('delete-btn')) {
+        const id = e.target.dataset.id;
+        try {
+          const res = await fetch(`/tasks/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Basic ' + btoa('Grupo:GrupoPass1234')
+            }
+          });
+          if (!res.ok) throw new Error('Error al eliminar la tarea.');
+          loadTasks();
+        } catch (err) {
+          showError(err.message);
+        }
+      }
+    });
+
+    // Cargar al inicio
+    loadTasks();
+  </script>
+</body>
+</html>
