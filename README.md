@@ -38,7 +38,7 @@ Hemos encontrado dificultad en unir el fichero css al js i hemos tenido que crea
 > Usuario: `grupo`  
 > Contraseña: `GrupoPass1234`
 
-## 📥 Cómo ejecutar localmente
+## Cómo ejecutar localmente
 ```bash
 git clone https://github.com/Horimonic/cloud-app-grupo
 cd cloud-app-grupo
