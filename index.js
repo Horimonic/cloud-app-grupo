@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware para JSON
 app.use(express.json());
+app.use(express.static('public'));
 
 // Autenticación básica (protege /tasks)
 const auth = basicAuth({
