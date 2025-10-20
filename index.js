@@ -33,7 +33,17 @@ const Task = mongoose.model('Task', taskSchema);
 
 // Ruta principal (pública)
 app.get('/', (req, res) => {
-  res.send('<h1>App de Tareas del Grupo</h1><p>Visita <a href="/tasks">/tasks</a> (requiere usuario y contraseña).</p>');
+  res.send('
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/styles.css">
+    </head>
+    <body>
+    <h1>App de Tareas del Grupo</h1><p>Visita <a href="/tasks">/tasks</a> (requiere usuario y contraseña).</p>
+    </body>
+    ');
 });
 
 // Rutas protegidas
