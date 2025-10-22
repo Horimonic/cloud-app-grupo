@@ -26,6 +26,7 @@ Aplicación web con funcionalidad CRUD para gestionar tareas.
 - Creacion de repositorio git (Andri)
 - Creacion de fichero js (Andri)
 - Crear base de datos i conectarla a js (Asier)
+- Autentificacion (Asier)
 - Crear html i css (Aaron)
 - Crear i vincular la web con render (Aaron)
 
